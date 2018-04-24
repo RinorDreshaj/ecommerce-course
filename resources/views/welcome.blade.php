@@ -77,6 +77,15 @@
                 </div>
             @endif
 
+            @foreach($products as $product)
+                <h1>{{  $product->name }}</h1>
+                @foreach($product->items as $item)
+                        <img src="{{ $item }}" alt="">
+                @endforeach
+            @endforeach
+
+
+
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
