@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $guarded = [];
+
     protected $appends = ['average_review', 'discounted_price', 'reviews_count'];
 
     public function items()
