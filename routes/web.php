@@ -1,16 +1,19 @@
 <?php
 
-Route::get('hello', function() {
-    return view('welcome');
-});
 Auth::routes();
+Route::get('/', 'MainController@index');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(["middleware" => ["admin"], "prefix" => "admin"], function() {
+    Route::get('/', 'Admin\DashboardController@index');
+    Route::resource('products', 'Admin\ProductsController');
+    Route::resource('products/{product}/items', 'Admin\ProductItemsController');
+    Route::resource('sliders', 'Admin\SlidersController');
+});
 
-Route::get('admin', 'Admin\DashboardController@index');
-Route::get('admin/products', 'Admin\ProductsController@index');
-Route::post('admin/products', 'Admin\ProductsController@store');
-Route::get('admin/products/{product}/edit', 'Admin\ProductsController@edit');
-Route::put('admin/products/{product}', 'Admin\ProductsController@update');
-Route::get('admin/products/create', 'Admin\ProductsController@create');
-Route::delete('admin/products/{id}', 'Admin\ProductsController@destroy');
+// admin/products/1/items/ -> get - index
+// admin/products/1/items/ -> post - store
+// admin/products/1/items/1 -> get- show
+// admin/products/1/items/1 -> delete - destroy
+// admin/products/1/items/1 -> put - update
+// admin/products/1/items/1/create -> get - update
+// admin/products/1/items/1/edit -> get - update

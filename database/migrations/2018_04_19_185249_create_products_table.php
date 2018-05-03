@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->float('price');
             $table->float('discount')->default(0);
+            $table->tinyInteger('is_featured')->default(0);
             $table->string('image')->nullable();
             $table->timestamps();
         });

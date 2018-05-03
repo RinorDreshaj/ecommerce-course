@@ -20,6 +20,7 @@
                             <th>Price</th>
                             <th>Discounted Price</th>
                             <th>Discount</th>
+                            <th>Add Items</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -35,6 +36,9 @@
                                 <td>{{ $product->price }} $</td>
                                 <td>{{ $product->discounted_price }} $</td>
                                 <td>{{ $product->discount }} %</td>
+                                <td>
+                                    <a href="{{ url("admin/products/$product->id/items") }}">Add Items</a>
+                                </td>
                                 <td>
                                     <a href="{{ url("admin/products/$product->id/edit") }}">Edit</a>
                                 </td>

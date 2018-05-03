@@ -28,31 +28,22 @@
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <img src="img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                 <span class="hidden-md-down">admin</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-
                 <div class="dropdown-header text-center">
                     <strong>Account</strong>
                 </div>
-                <div class="dropdown-header text-center">
-                    <strong>Settings</strong>
-                </div>
-
-                <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
-                <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a>
-                <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a>
-                <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
-                <div class="divider"></div>
-                <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a>
-                <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
+                <form action="{{ route('logout') }}" method="POST">
+                    {{ csrf_field() }}
+                    <button type="submit"
+                            class="dropdown-item">
+                        <i class="fa fa-lock"></i>
+                        Logout
+                    </button>
+                </form>
             </div>
         </li>
-        <li class="nav-item hidden-md-down">
-            <a class="nav-link navbar-toggler aside-menu-toggler" href="#">☰</a>
-        </li>
-
     </ul>
 </header>
 
@@ -71,6 +62,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/products') }}">
                         <i class="icon-speedometer"></i>Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('admin/sliders') }}">
+                        <i class="icon-speedometer"></i>Sliders
                     </a>
                 </li>
             </ul>

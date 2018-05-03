@@ -2,7 +2,8 @@
 
 namespace App\Traits;
 
-trait FileUploadTrait {
+trait FileUploadTrait
+{
     public function uploadImage($image)
     {
         if($image)
