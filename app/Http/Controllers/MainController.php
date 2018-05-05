@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ class MainController extends Controller
 
         $featured_products = Product::where("is_featured", 1)->get();
 
-        return view('index.index', compact('featured_products', 'sliders'));
+        $categories = Category::all();
+
+        return view('index.index', compact('featured_products', 'sliders', 'categories'));
     }
 }

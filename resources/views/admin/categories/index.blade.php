@@ -5,9 +5,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-align-justify"></i>Sliders
-                    <a href="{{ url('admin/sliders/create') }}" style="float: right;">
-                        + Add Slider
+                    <i class="fa fa-align-justify"></i>Categories
+                    <a href="{{ url('admin/categories/create') }}" style="float: right;">
+                        + Add Category
                     </a>
                 </div>
                 <div class="card-block">
@@ -15,27 +15,23 @@
                         <thead>
                         <tr>
                             <th>Image</th>
-                            <th>Title</th>
-                            <th>Subtitle</th>
-                            <th>Status</th>
+                            <th>Name</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($sliders as $key => $slider)
+                        @foreach($categories as $key => $category)
                             <tr>
                                 <td>
-                                    <img src="{{ url("storage/" . $slider->image) }}" alt="" class="img-responsive" style="width: 75px;">
+                                    <img src="{{ url("storage/" . $category->image) }}" alt="" class="img-responsive" style="width: 75px;">
                                 </td>
-                                <td>{{ $slider->title }}</td>
-                                <td>{{ $slider->subtitle }}</td>
-                                <td>{{ $slider->status }}</td>
+                                <td>{{ $category->name }}</td>
                                 <td>
-                                    <a href="{{ url("admin/sliders/$slider->id/edit") }}">Edit</a>
+                                    <a href="{{ url("admin/categories/$category->id/edit") }}">Edit</a>
                                 </td>
                                 <td>
-                                    <form action="{{ url("admin/sliders/$slider->id") }}" method="POST">
+                                    <form action="{{ url("admin/categories/$category->id") }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <input type="submit" value="DELETE" class="btn btn-danger">
@@ -49,4 +45,5 @@
             </div>
         </div>
     </div>
+
 @endsection

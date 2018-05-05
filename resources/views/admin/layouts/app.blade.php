@@ -59,6 +59,13 @@
                     Pages
                 </li>
 
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('admin/categories') }}">
+                        <i class="icon-speedometer"></i>Categories
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('admin/products') }}">
                         <i class="icon-speedometer"></i>Products

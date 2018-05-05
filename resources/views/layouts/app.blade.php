@@ -52,7 +52,11 @@
 
             <div class="topbar-child2">
 					<span class="topbar-email">
-						fashe@example.com
+						@if(!Auth::check())
+                            <a href="{{ url("login") }}" style="text-decoration: underline">Login</a>
+                        @else
+                            {{ Auth::user()->name }}
+                        @endif
 					</span>
 
                 <div class="topbar-language rs1-select2">
@@ -578,6 +582,8 @@
 <script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
 <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="vendor/select2/select2.min.js"></script>
+
+@yield('scripts')
 <script type="text/javascript">
     $(".selection-1").select2({
         minimumResultsForSearch: 20,

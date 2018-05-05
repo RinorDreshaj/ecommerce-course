@@ -15,9 +15,20 @@ class ProductsTableSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
+        for($i=0; $i < 10;$i++)
+        {
+            \App\Models\Category::create([
+                'name' => $faker->name,
+                'image' => $faker->imageUrl()
+            ]);
+        }
+
+        $categories = \App\Models\Category::pluck('id');
+
         for($i=0; $i < $number_of_products;$i++)
         {
             \App\Models\Product::create([
+                'category_id' => $categories[rand(0, 9)],
                 'name' => $faker->name,
                 'description' => $faker->sentence(),
                 'price' => $faker->randomFloat(2,10, 100),

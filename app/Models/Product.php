@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -18,6 +19,11 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function getNewAttribute()
+    {
+        return Carbon::now()->gte($this->created_at->addDays(7)) ? 0 : 1;
     }
 
     public function getAverageReviewAttribute()

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Slider;
+use App\Models\Category;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class SlidersController extends Controller
+class CategoriesController extends Controller
 {
     use FileUploadTrait;
     /**
@@ -17,9 +17,9 @@ class SlidersController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::all();
+        $categories = Category::all();
 
-        return view('admin.sliders.index', compact('sliders'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -29,7 +29,7 @@ class SlidersController extends Controller
      */
     public function create()
     {
-        return view('admin.sliders.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -42,13 +42,15 @@ class SlidersController extends Controller
     {
         $image_name = $this->uploadImage($request->image);
 
-        $slider = Slider::create([
-            "image" => $image_name,
-            "name" => $request->name,
-            "status" => $request->status
-        ]);
+        $category = Category::create(
+            array_merge(
+                $request->except('image'),
+                ["image" => $image_name]
 
-        return redirect('admin/sliders');
+            )
+        );
+
+        return redirect('admin/categories');
     }
 
     /**
@@ -68,9 +70,11 @@ class SlidersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Slider $slider)
+    public function edit($id)
     {
-        return view('admin.sliders.edit', compact('slider'));
+        $category = Category::findOrFail($id);
+
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -80,16 +84,14 @@ class SlidersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request, Category $category)
     {
         $image_name = $this->uploadImage($request->image);
 
-        $slider->update(
-            array_merge(
-                $request->except('image'),
-                ["image" => $image_name ?? $slider->image ?? null]
-            )
-        );
+        $category->update([
+                "name" => $request->name,
+                "image" => $image_name ?? $category->image
+        ]);
 
         return redirect()->back();
     }
@@ -100,9 +102,9 @@ class SlidersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slider $slider)
+    public function destroy(Category $category)
     {
-        $slider->delete();
+        $category->delete();
 
         return redirect()->back();
     }
