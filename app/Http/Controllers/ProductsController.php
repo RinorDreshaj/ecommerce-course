@@ -34,4 +34,16 @@ class ProductsController extends Controller
         return view('products.index', compact('categories', 'products'));
     }
 
+    public function show(Product $product)
+    {
+        $related_products = Product::where(
+            'category_id', $product->category_id
+        )->limit(20)
+            ->get();
+
+        return view('products.show', [
+            "product" => $product,
+            "related_products" => $related_products
+        ]);
+    }
 }

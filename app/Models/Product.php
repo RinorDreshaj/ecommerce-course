@@ -16,6 +16,11 @@ class Product extends Model
         return $this->hasMany(ProductItem::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class);
@@ -24,6 +29,11 @@ class Product extends Model
     public function getNewAttribute()
     {
         return Carbon::now()->gte($this->created_at->addDays(7)) ? 0 : 1;
+    }
+
+    public function getSaleAttribute()
+    {
+        return $this->discount > 20;
     }
 
     public function getAverageReviewAttribute()

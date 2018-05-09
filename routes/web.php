@@ -3,6 +3,12 @@
 Auth::routes();
 Route::get('/', 'MainController@index');
 Route::get('/products', 'ProductsController@index');
+Route::get('/products/{product}', 'ProductsController@show');
+
+
+Route::get('wishlists', 'WishlistsController@index');
+Route::post('wishlists', 'WishlistsController@store');
+Route::delete('wishlists/{product}', 'WishlistsController@destroy');
 
 Route::group(["middleware" => ["admin"], "prefix" => "admin"], function() {
     Route::get('/', 'Admin\DashboardController@index');

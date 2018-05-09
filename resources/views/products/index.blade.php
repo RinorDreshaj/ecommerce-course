@@ -9,8 +9,8 @@
             New Arrivals Women Collection 2018
         </p>
     </section>
-
-    <section class="bgwhite p-t-55 p-b-65">
+    <form action="{{ url('products') }}" method="GET" id="form_products">
+        <section class="bgwhite p-t-55 p-b-65">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
@@ -108,12 +108,10 @@
                         </div>
 
                         <div class="search-product pos-relative bo4 of-hidden">
-                            <form action="{{ url("products") }}" method="GET">
-                                <input class="s-text7 size6 p-l-23 p-r-50" type="text" name="name" placeholder="Search Products..." value="{{ $_GET['name'] ?? '' }}">
-                                <button type="submit" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-                                    <i class="fs-12 fa fa-search" aria-hidden="true"></i>
-                                </button>
-                            </form>
+                            <input class="s-text7 size6 p-l-23 p-r-50" type="text" name="name" placeholder="Search Products..." value="{{ $_GET['name'] ?? '' }}">
+                            <button type="submit" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
+                                <i class="fs-12 fa fa-search" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -123,27 +121,22 @@
                     <div class="flex-sb-m flex-w p-b-35">
                         <div class="flex-w">
                             <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                                <form action="{{ url('products') }}" method="GET" id="sorting">
-                                    <select class="selection-2" name="sorting" id="select_sorting">
-                                        <option>Default Sorting</option>
-                                        <option>Popularity</option>
-                                        <option value="ASC">Price: low to high</option>
-                                        <option value="DESC">Price: high to low</option>
-                                    </select>
-                                </form>
+                                <select class="selection-2" name="sorting" id="select_sorting">
+                                    <option>Default Sorting</option>
+                                    <option>Popularity</option>
+                                    <option value="ASC">Price: low to high</option>
+                                    <option value="DESC">Price: high to low</option>
+                                </select>
                             </div>
-
                             <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-                                <form action="{{ url('products') }}" method="GET" id="form_price">
-                                    <select class="selection-2" name="price_range" id="price_range">
-                                        <option>Price</option>
-                                        <option value="0-50" @if(isset($_GET['price_range']) && $_GET['price_range'] == "0-50") selected @endif>$0.00 - $50.00</option>
-                                        <option value="50-100" @if(isset($_GET['price_range']) && $_GET['price_range'] == "50-100") selected @endif>$50.00 - $100.00</option>
-                                        <option value="100-150" @if(isset($_GET['price_range']) && $_GET['price_range'] == "100-150") selected @endif>$100.00 - $150.00</option>
-                                        <option value="150-200" @if(isset($_GET['price_range']) && $_GET['price_range'] == "150-200") selected @endif>$150.00 - $200.00</option>
-                                        <option value="200-" @if(isset($_GET['price_range']) && $_GET['price_range'] == "200-") selected @endif>$200.00+</option>
-                                    </select>
-                                </form>
+                                <select class="selection-2" name="price_range" id="price_range">
+                                    <option>Price</option>
+                                    <option value="0-50" @if(isset($_GET['price_range']) && $_GET['price_range'] == "0-50") selected @endif>$0.00 - $50.00</option>
+                                    <option value="50-100" @if(isset($_GET['price_range']) && $_GET['price_range'] == "50-100") selected @endif>$50.00 - $100.00</option>
+                                    <option value="100-150" @if(isset($_GET['price_range']) && $_GET['price_range'] == "100-150") selected @endif>$100.00 - $150.00</option>
+                                    <option value="150-200" @if(isset($_GET['price_range']) && $_GET['price_range'] == "150-200") selected @endif>$150.00 - $200.00</option>
+                                    <option value="200-" @if(isset($_GET['price_range']) && $_GET['price_range'] == "200-") selected @endif>$200.00+</option>
+                                </select>
                             </div>
                         </div>
 
@@ -177,14 +170,9 @@
                                 </div>
 
                                 <div class="block2-txt p-t-20">
-                                    <a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
-                                        {{ $product->name }}
-                                    </a>
-
-
                                     <div class="block2-txt p-t-20">
                                         <a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
-                                            Frayed denim shorts
+                                            {{ $product->name }}
                                         </a>
 
                                         @if($product->discount > 0)
@@ -212,17 +200,18 @@
             </div>
         </div>
     </section>
+    </form>
 @endsection
 
 @section('scripts')
 
     <script>
         $(document).on("change", "#price_range", function() {
-            $("#form_price").submit();
+            $("#form_products").submit();
         })
 
         $(document).on("change", "#select_sorting", function() {
-            $("#sorting").submit();
+            $("#form_products").submit();
         });
     </script>
 @endsection
