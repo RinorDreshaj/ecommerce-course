@@ -14,6 +14,7 @@
         <!-- Cart item -->
         <div class="container-table-cart pos-relative">
             <div class="wrap-table-shopping-cart bgwhite">
+                @if(count($products) > 0)
                 <table class="table-shopping-cart">
                     <tr class="table-head">
                         <th class="column-1"></th>
@@ -22,7 +23,6 @@
                         <th class="column-4">Discounted Price</th>
                         <th class="column-5">Total</th>
                     </tr>
-
                     @foreach($products as $product)
                         <tr class="table-row">
                         <td class="column-1">
@@ -42,8 +42,10 @@
                         </td>
                     </tr>
                     @endforeach
-
                 </table>
+                @else
+                    <p>You dont have any product in your wishlist!</p>
+                @endif
             </div>
         </div>
 

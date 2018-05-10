@@ -181,10 +181,19 @@
                                 <img src="{{ url("storage") . "/$item->image" }}" alt="IMG-PRODUCT">
 
                                 <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4" data-id="{{ $item->id }}">
+                                    @if(!in_array($item->id,Auth::user()->wishlist()->pluck('product_id')->toArray()))
+                                        <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4" data-id="{{ $item->id }}">
+                                            <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                            <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                                        </a>
+
+                                    @else
+                                        <a href="#" class="hov-pointer trans-0-4 block2-btn-towishlist" data-id="3" tabindex="0"  data-id="{{ $item->id }}">
                                         <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                         <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                     </a>
+
+                                    @endif
 
                                     <div class="block2-btn-addcart w-size1 trans-0-4">
                                         <!-- Button -->
@@ -228,9 +237,27 @@
                 success: function(response) {
                     $(buttoni).addClass('block2-btn-towishlist');
                     $(buttoni).removeClass('block2-btn-addwishlist');
-                    $(buttoni).off('click');
+                    // $(buttoni).off('click');
                 }
             })
         })
+
+        $(document).on('click', '.block2-btn-towishlist', function(e) {
+            e.preventDefault();
+
+            var buttoni = $(this);
+
+            $.ajax({
+                url: "{{ url("wishlists") }}",
+                method: "DELETE",
+                data: {"product_id": $(this).data('id')},
+                success: function(response) {
+                    $(buttoni).removeClass('block2-btn-towishlist');
+                    $(buttoni).addClass('block2-btn-addwishlist');
+                    // $(buttoni).off('click');
+                }
+            })
+        })
+
     </script>
 @endsection

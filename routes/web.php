@@ -5,10 +5,18 @@ Route::get('/', 'MainController@index');
 Route::get('/products', 'ProductsController@index');
 Route::get('/products/{product}', 'ProductsController@show');
 
+Route::get('payment', 'PaymentController@index');
+
 
 Route::get('wishlists', 'WishlistsController@index');
 Route::post('wishlists', 'WishlistsController@store');
 Route::delete('wishlists/{product}', 'WishlistsController@destroy');
+Route::delete('wishlists', 'WishlistsController@delete');
+
+Route::resource('cart', 'CartsController');
+
+Route::post('cart-add', 'CartsController@addQuantity');
+Route::post('cart-sub', 'CartsController@subQuantity');
 
 Route::group(["middleware" => ["admin"], "prefix" => "admin"], function() {
     Route::get('/', 'Admin\DashboardController@index');

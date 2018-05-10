@@ -24,6 +24,13 @@ class WishlistsController extends Controller
         return response()->json(["data" => "success"]);
     }
 
+    public function delete(Request $request)
+    {
+        Auth::user()->wishlist()->detach([$request->product_id]);
+
+        return response()->json(["data" => "success"]);
+    }
+
     public function destroy($product_id)
     {
         Auth::user()->wishlist()->detach([$product_id]);
