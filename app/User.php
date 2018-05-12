@@ -6,11 +6,10 @@ use App\Models\Product;
 use App\Models\Wishlist;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
-    use Notifiable, Billable;
+    use Notifiable;
 
     protected $fillable = ['name', 'email', 'password',];
 

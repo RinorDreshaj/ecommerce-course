@@ -29,6 +29,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ url("css/util.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ url("css/main.css") }}">
+
+    @yield('styles')
     <!--===============================================================================================-->
 </head>
 <body class="animsition">
@@ -55,7 +57,11 @@
 						@if(!Auth::check())
                             <a href="{{ url("login") }}" style="text-decoration: underline">Login</a>
                         @else
-                            {{ Auth::user()->name }}
+                            <form action="{{ url('logout') }}" method="POST">
+                                {{ Auth::user()->name }}
+                                {{ csrf_field() }}
+                                <button type="submit">Logout</button>
+                            </form>
                         @endif
 					</span>
 
@@ -78,37 +84,13 @@
             <div class="wrap_menu">
                 <nav class="menu">
                     <ul class="main_menu">
+
                         <li>
-                            <a href="index.html">Home</a>
-                            <ul class="sub_menu">
-                                <li><a href="index.html">Homepage V1</a></li>
-                                <li><a href="home-02.html">Homepage V2</a></li>
-                                <li><a href="home-03.html">Homepage V3</a></li>
-                            </ul>
+                            <a href="{{ url('/') }}">Home</a>
                         </li>
 
                         <li>
-                            <a href="product.html">Shop</a>
-                        </li>
-
-                        <li class="sale-noti">
-                            <a href="product.html">Sale</a>
-                        </li>
-
-                        <li>
-                            <a href="cart.html">Features</a>
-                        </li>
-
-                        <li>
-                            <a href="blog.html">Blog</a>
-                        </li>
-
-                        <li>
-                            <a href="about.html">About</a>
-                        </li>
-
-                        <li>
-                            <a href="contact.html">Contact</a>
+                            <a href="{{ url('/products') }}">Products</a>
                         </li>
 
                         <li>
@@ -189,14 +171,14 @@
                         <div class="header-cart-buttons">
                             <div class="header-cart-wrapbtn">
                                 <!-- Button -->
-                                <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                <a href="{{ url('cart') }}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                                     View Cart
                                 </a>
                             </div>
 
                             <div class="header-cart-wrapbtn">
                                 <!-- Button -->
-                                <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                <a href="{{ url('payment') }}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                                     Check Out
                                 </a>
                             </div>

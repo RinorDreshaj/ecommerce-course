@@ -76,6 +76,11 @@
                         <i class="icon-speedometer"></i>Sliders
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('admin/orders') }}">
+                        <i class="icon-speedometer"></i>Orders
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

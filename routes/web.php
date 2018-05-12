@@ -5,18 +5,19 @@ Route::get('/', 'MainController@index');
 Route::get('/products', 'ProductsController@index');
 Route::get('/products/{product}', 'ProductsController@show');
 
-Route::get('payment', 'PaymentController@index');
 
+Route::group(["middleware" => ["auth"]], function() {
+    Route::get('payment', 'PaymentController@index');
+    Route::post('payment', 'PaymentController@store');
+    Route::get('wishlists', 'WishlistsController@index');
+    Route::post('wishlists', 'WishlistsController@store');
+    Route::delete('wishlists/{product}', 'WishlistsController@destroy');
+    Route::delete('wishlists', 'WishlistsController@delete');
+    Route::resource('cart', 'CartsController');
+    Route::post('cart-add', 'CartsController@addQuantity');
+    Route::post('cart-sub', 'CartsController@subQuantity');
+});
 
-Route::get('wishlists', 'WishlistsController@index');
-Route::post('wishlists', 'WishlistsController@store');
-Route::delete('wishlists/{product}', 'WishlistsController@destroy');
-Route::delete('wishlists', 'WishlistsController@delete');
-
-Route::resource('cart', 'CartsController');
-
-Route::post('cart-add', 'CartsController@addQuantity');
-Route::post('cart-sub', 'CartsController@subQuantity');
 
 Route::group(["middleware" => ["admin"], "prefix" => "admin"], function() {
     Route::get('/', 'Admin\DashboardController@index');
@@ -24,6 +25,7 @@ Route::group(["middleware" => ["admin"], "prefix" => "admin"], function() {
     Route::resource('products/{product}/items', 'Admin\ProductItemsController');
     Route::resource('sliders', 'Admin\SlidersController');
     Route::resource('categories', 'Admin\CategoriesController');
+    Route::resource('orders', 'Admin\OrdersController');
 });
 
 // admin/products/1/items/ -> get - index
